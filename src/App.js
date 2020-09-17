@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
+import Navigation from './Components/Navigation/Navigation';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Smart Brain App</h1>
-      </header>
+      <Navigation />
+      {/* <Logo />
+      <ImageLinkForm />
+      <FaceRecognition /> */}
     </div>
   );
 }
