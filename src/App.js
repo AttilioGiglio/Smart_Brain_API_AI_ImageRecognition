@@ -7,6 +7,7 @@ import Logo from './Components/Logo/Logo';
 import Navigation from './Components/Navigation/Navigation';
 import Rank from './Components/Rank/Rank';
 import Clarifai from 'clarifai';
+import Signin from './Components/Signin/Signin';
 
 function App() {
 
@@ -28,7 +29,7 @@ function App() {
 
   const calculateFaceLocation = (data) => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
-    const image = document.getElementById('inputImage');
+    const image = document.getElementById('inputimage');
     const width = Number(image.width);
     const height = Number(image.height);
     return {
@@ -39,9 +40,10 @@ function App() {
     }
   }
 
-  const displayFaceBox = (containerFace) => {
-    setState({[box]: containerFace})
-  }
+
+  const displayFaceBox = (container) => {
+    setState({ [box]: container })
+  };
 
   const onButtonChange = (e) => {
     setState({ imageUrl: input })
@@ -74,6 +76,7 @@ function App() {
         params={particlesOptions}
       />
       <Navigation />
+      <Signin />
       <Logo />
       <Rank />
       <ImageLinkForm
@@ -81,7 +84,7 @@ function App() {
         onButtonChange={onButtonChange} />
       <FaceRecognition
         imageUrl={imageUrl}
-        box={box}
+      // box={box}
       />
     </div>
   );
