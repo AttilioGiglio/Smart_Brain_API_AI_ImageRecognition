@@ -14,27 +14,45 @@ function App() {
     apiKey: '830df3e3c47a4135989c97e73c30b3d9'
   });
 
-  const [state, setState] = useState({ 
+  const [state, setState] = useState({
     input: '',
-    imageUrl: '' 
+    imageUrl: '',
+    box: {}
   })
 
-  const {input, imageUrl} = state;
+  const { input, imageUrl, box } = state;
 
   const onInputChange = (e) => {
-    setState({input:e.target.value})
+    setState({ input: e.target.value })
+  }
+
+  const calculateFaceLocation = (data) => {
+    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById('inputImage');
+    const width = Number(image.width);
+    const height = Number(image.height);
+    return {
+      leftCol: clarifaiFace.left_col * width,
+      topRow: clarifaiFace.top_row * height,
+      rightCol: width - (clarifaiFace.right_col * width),
+      bottomRow: height - (clarifaiFace.bottom_row * height)
+    }
+  }
+
+  const displayFaceBox = (containerFace) => {
+    setState({[box]: containerFace})
   }
 
   const onButtonChange = (e) => {
-    setState({imageUrl:input})
+    setState({ imageUrl: input })
     app.models.predict(
-      Clarifai.FACE_DETECT_MODEL, 
+      Clarifai.FACE_DETECT_MODEL,
       input)
       .then(response => {
-        console.log(response)
+        displayFaceBox(calculateFaceLocation(response))
       })
       .catch(error => {
-        // There was an error
+        console.log(error)
       });
   }
 
@@ -49,7 +67,7 @@ function App() {
       }
     }
   }
-  
+
   return (
     <div className="App">
       <Particles className='particles'
@@ -58,11 +76,12 @@ function App() {
       <Navigation />
       <Logo />
       <Rank />
-      <ImageLinkForm 
-      onInputChange={onInputChange} 
-      onButtonChange={onButtonChange} />
-      <FaceRecognition 
-      imageUrl={imageUrl}
+      <ImageLinkForm
+        onInputChange={onInputChange}
+        onButtonChange={onButtonChange} />
+      <FaceRecognition
+        imageUrl={imageUrl}
+        box={box}
       />
     </div>
   );
