@@ -19,15 +19,17 @@ function App() {
     imageUrl: '' 
   })
 
+  const {input, imageUrl} = state;
+
   const onInputChange = (e) => {
-    console.log(e.target.value)
+    setState({input:e.target.value})
   }
 
   const onButtonChange = (e) => {
     setState({imageUrl:input})
     app.models.predict(
-      Clarifai.COLOR_MODEL, 
-      'https://samples.clarifai.com/metro-north.jpg')
+      Clarifai.FACE_DETECT_MODEL, 
+      input)
       .then(response => {
         console.log(response)
       })
@@ -47,8 +49,6 @@ function App() {
       }
     }
   }
-
-  const {input, imageUrl} = state;
   
   return (
     <div className="App">
