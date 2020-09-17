@@ -6,8 +6,8 @@ import './Logo.css'
 const Logo = () => {
     return (
         <div className='ma4 mt0'>
-            <Tilt className="Tilt br shadow-2" options={{ max: 25 }} style={{ height: 150, width: 150 }} >
-                <div className="Tilt-inner pa3"><img style={{paddingTop: '8px'}} alt='logo' src={Brain}/> </div>
+            <Tilt className="Tilt br shadow-1" options={{ max: 55 }} style={{ height: 150, width: 150 }} >
+                <div className="icon Tilt-inner pa3"><img style={{paddingTop: '8px', paddingLeft: '6px'}} alt='logo' src={Brain}/> </div>
             </Tilt>
         </div>
     )
