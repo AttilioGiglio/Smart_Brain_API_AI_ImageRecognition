@@ -8,6 +8,7 @@ import Navigation from './Components/Navigation/Navigation';
 import Rank from './Components/Rank/Rank';
 import Clarifai from 'clarifai';
 import Signin from './Components/Signin/Signin';
+import Register from './Components/Register/Register';
 
 function App() {
 
@@ -18,10 +19,11 @@ function App() {
   const [state, setState] = useState({
     input: '',
     imageUrl: '',
-    box: {}
+    box: {},
+    route: 'signin'
   })
 
-  const { input, imageUrl, box } = state;
+  const { input, imageUrl, box, route } = state;
 
   const onInputChange = (e) => {
     setState({ input: e.target.value })
@@ -70,22 +72,46 @@ function App() {
     }
   }
 
+
+  const onRouteChange = (route) => {
+    setState({ route: route })
+  }
+
   return (
     <div className="App">
       <Particles className='particles'
         params={particlesOptions}
       />
-      <Navigation />
-      <Signin />
-      <Logo />
-      <Rank />
-      <ImageLinkForm
-        onInputChange={onInputChange}
-        onButtonChange={onButtonChange} />
-      <FaceRecognition
-        imageUrl={imageUrl}
-      // box={box}
+      <Navigation
+        onRouteChange={onRouteChange}
       />
+      {
+        route === 'home'
+          ?
+          <div>
+            <Logo />
+            <Rank />
+            <ImageLinkForm
+              onInputChange={onInputChange}
+              onButtonChange={onButtonChange} />
+            <FaceRecognition
+              imageUrl={imageUrl}
+            // box={box}
+            />
+          </div>
+          :
+          (
+            route === 'signin'
+              ?
+              <Signin
+                onRouteChange={onRouteChange}
+              />
+              :
+              <Register
+                onRouteChange={onRouteChange}
+              />
+          )
+      }
     </div>
   );
 }
