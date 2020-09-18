@@ -14,7 +14,6 @@ const Signin = ({onRouteChange}) => {
                   type="email"
                   name="email-address"
                   id="email-address"
-                //   onChange={this.onEmailChange}
                 />
               </div>
               <div className="mv3">
@@ -24,7 +23,6 @@ const Signin = ({onRouteChange}) => {
                   type="password"
                   name="password"
                   id="password"
-                //   onChange={this.onPasswordChange}
                 />
               </div>
             </fieldset>

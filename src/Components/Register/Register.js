@@ -14,7 +14,6 @@ const Register = ({onRouteChange}) => {
                   type="text"
                   name="name"
                   id="name"
-                //   onChange={this.onNameChange}
                 />
               </div>
               <div className="mt3">
@@ -24,7 +23,6 @@ const Register = ({onRouteChange}) => {
                   type="email"
                   name="email-address"
                   id="email-address"
-                //   onChange={this.onEmailChange}
                 />
               </div>
               <div className="mv3">
@@ -34,7 +32,6 @@ const Register = ({onRouteChange}) => {
                   type="password"
                   name="password"
                   id="password"
-                //   onChange={this.onPasswordChange}
                 />
               </div>
             </fieldset>
