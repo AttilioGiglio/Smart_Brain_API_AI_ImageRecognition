@@ -18,17 +18,16 @@ constructor(){
     this.setState({signInPassword: e.target.value})
   }
 
-  onSubmitSignIn = (e) => {
-    e.preventDefault();
-    fetch('http://localhost:3000/signin'),{
+  onSubmitSignIn = () => {
+    fetch('http://localhost:4000/signin',{
       method: 'post',
-      header: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         email: this.state.signInEmail,
         password: this.state.signInPassword
       })
-    }
-    this.props.onRouteChange();
+    })
+    this.props.onRouteChange('home');
   }
 
   render() {
