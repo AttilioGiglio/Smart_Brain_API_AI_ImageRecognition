@@ -35,7 +35,26 @@ class App extends Component {
       box: {},
       route: 'signin',
       isSignedIn: false,
+      user: {
+        id: '',
+        name: '',
+        email: '',
+        entries: 0,
+        joined: ''
+      }
     }
+  }
+
+  loadUser = (data) => {
+    this.setState({
+      user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        entries: data.entries,
+        joined: data.joined
+      }
+    })
   }
 
   componentDidMount() {
@@ -63,7 +82,7 @@ class App extends Component {
     this.setState({ input: event.target.value });
   }
 
-  onButtonSubmit = () => {
+  onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input });
     app.models
       .predict(
@@ -94,19 +113,19 @@ class App extends Component {
           ? <div>
             <Logo />
             <Rank
-            // name={this.state.user.name}
-            // entries={this.state.user.entries}
+            name={this.state.user.name}
+            entries={this.state.user.entries}
             />
             <ImageLinkForm
               onInputChange={this.onInputChange}
-              onButtonSubmit={this.onButtonSubmit}
+              onPictureSubmit={this.onPictureSubmit}
             />
             <FaceRecognition box={box} imageUrl={imageUrl} />
           </div>
           : (
             route === 'signin'
-              ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
-              : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
+              ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange} loadUser={this.loadUser} />
+              : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange} loadUser={this.loadUser} />
           )
         }
       </div>
