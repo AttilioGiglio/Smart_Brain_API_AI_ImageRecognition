@@ -73,9 +73,10 @@ class App extends Component {
       bottomRow: height - (clarifaiFace.bottom_row * height)
     }
   }
-
+  
   displayFaceBox = (box) => {
     this.setState({ box: box });
+    console.log(this.state.box)
   }
 
   onInputChange = (event) => {
@@ -96,6 +97,12 @@ class App extends Component {
             body: JSON.stringify({
               id: this.state.user.id
             })
+          })
+          .then(response => response.json())
+          .then(count => {
+            this.setState(Object.assign(this.state.user,{
+              entries:count
+            }))
           })
         }
         this.displayFaceBox(this.calculateFaceLocation(response));
@@ -135,8 +142,8 @@ class App extends Component {
           </div>
           : (
             route === 'signin'
-              ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange} loadUser={this.loadUser} />
-              : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange} loadUser={this.loadUser} />
+              ? <Signin onRouteChange={this.onRouteChange} loadUser={this.loadUser} />
+              : <Register onRouteChange={this.onRouteChange} loadUser={this.loadUser} />
           )
         }
       </div>
