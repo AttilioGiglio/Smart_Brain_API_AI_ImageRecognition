@@ -6,13 +6,8 @@ import ImageLinkForm from './Components/ImageLinkForm/ImageLinkForm';
 import Logo from './Components/Logo/Logo';
 import Navigation from './Components/Navigation/Navigation';
 import Rank from './Components/Rank/Rank';
-import Clarifai from 'clarifai';
 import Signin from './Components/Signin/Signin';
 import Register from './Components/Register/Register';
-
-const app = new Clarifai.App({
-  apiKey: '830df3e3c47a4135989c97e73c30b3d9'
-});
 
 const particlesOptions = {
   particles: {
@@ -73,7 +68,7 @@ class App extends Component {
       bottomRow: height - (clarifaiFace.bottom_row * height)
     }
   }
-  
+
   displayFaceBox = (box) => {
     this.setState({ box: box });
     console.log(this.state.box)
@@ -85,10 +80,14 @@ class App extends Component {
 
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-    app.models
-      .predict(
-        Clarifai.FACE_DETECT_MODEL,
-        this.state.input)
+    fetch('http://localhost:4000/imageurl', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        input: this.state.input
+      })
+    })
+      .then(response => response.json())
       .then(response => {
         if (response) {
           fetch('http://localhost:4000/image', {
@@ -98,12 +97,12 @@ class App extends Component {
               id: this.state.user.id
             })
           })
-          .then(response => response.json())
-          .then(count => {
-            this.setState(Object.assign(this.state.user,{
-              entries:count
-            }))
-          })
+            .then(response => response.json())
+            .then(count => {
+              this.setState(Object.assign(this.state.user, {
+                entries: count
+              }))
+            })
         }
         this.displayFaceBox(this.calculateFaceLocation(response));
       })
