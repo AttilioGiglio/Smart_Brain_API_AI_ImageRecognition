@@ -14,21 +14,6 @@ const app = new Clarifai.App({
   apiKey: '830df3e3c47a4135989c97e73c30b3d9'
 });
 
-const initialState = {
-  input: '',
-  imageUrl: '',
-  box: {},
-  route: 'signin',
-  isSignedIn: false,
-  user: {
-    id: '',
-    name: '',
-    email: '',
-    entries: 0,
-    joined: ''
-  }
-}
-
 const particlesOptions = {
   particles: {
     number: {
@@ -44,7 +29,20 @@ const particlesOptions = {
 class App extends Component {
   constructor() {
     super();
-    this.state = initialState;
+    this.state = {
+      input: '',
+      imageUrl: '',
+      box: {},
+      route: 'signin',
+      isSignedIn: false,
+      user: {
+        id: '',
+        name: '',
+        email: '',
+        entries: 0,
+        joined: ''
+      }
+    }
   }
 
   loadUser = (data) => {
@@ -114,7 +112,7 @@ class App extends Component {
 
   onRouteChange = (route) => {
     if (route === 'signout') {
-      this.setState({ initialState})
+      this.setState({ isSignedIn: false })
     } else if (route === 'home') {
       this.setState({ isSignedIn: true })
     }
