@@ -2,7 +2,7 @@
   "name": "smartbrain",
   "version": "0.1.0",
   "private": true,
-  "engine":{
+  "engines":{
     "node": "12.16.2",
     "npm": "6.14.4"
   },
