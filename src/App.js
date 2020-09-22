@@ -53,7 +53,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:4000/').then(response => response.json()).then(data => console.log(data))
+    fetch('https://rocky-tor-88478.herokuapp.com/').then(response => response.json()).then(data => console.log(data))
   }
 
   calculateFaceLocation = (data) => {
@@ -80,7 +80,7 @@ class App extends Component {
 
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-    fetch('http://localhost:4000/imageurl', {
+    fetch('https://rocky-tor-88478.herokuapp.com/imageurl', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -90,7 +90,7 @@ class App extends Component {
       .then(response => response.json())
       .then(response => {
         if (response) {
-          fetch('http://localhost:4000/image', {
+          fetch('https://rocky-tor-88478.herokuapp.com:4000/image', {
             method: 'put',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
